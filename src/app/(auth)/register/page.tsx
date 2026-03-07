@@ -59,7 +59,7 @@ export default function RegisterPage() {
                 </div>
             </div>
 
-            <form onSubmit={handleRegister} className="space-y-3">
+            {/* <form onSubmit={handleRegister} className="space-y-3">
                 <div className="space-y-1.5">
                     <Label htmlFor="name" className="text-xs">Name</Label>
                     <Input id="name" value={name} onChange={(e) => setName(e.target.value)}
@@ -79,7 +79,7 @@ export default function RegisterPage() {
                     {loading === "email" ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <UserPlus className="w-4 h-4 mr-2" />}
                     Create Account
                 </Button>
-            </form>
+            </form> */}
 
             <p className="text-center text-xs text-muted-foreground">
                 Have an account?{" "}
