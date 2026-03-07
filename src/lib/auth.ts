@@ -9,6 +9,7 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
+    trustedOrigins: ["https://dev-road.vercel.app", "http://localhost:3000"],
     socialProviders: {
         github: {
             clientId: process.env.GITHUB_CLIENT_ID as string,

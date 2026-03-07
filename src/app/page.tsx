@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 const phases = [
@@ -27,7 +30,9 @@ const features = [
   { icon: "◻", color: "#ff6b35", bg: "#ff6b3518", title: "Built for your stack", desc: "TypeScript, Node.js, Postgres, Redis, Docker. Every build task forces you to actually understand what you already use." },
 ];
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (session) redirect("/roadmap");
   return (
     <>
       <style>{`
@@ -79,7 +84,7 @@ export default function LandingPage() {
         .title-ghost {
           display: block;
           color: transparent;
-          -webkit-text-stroke: 1px #222;
+          -webkit-text-stroke: 1px #444;
         }
 
         .title-accent {
@@ -138,7 +143,7 @@ export default function LandingPage() {
         .btn-ghost {
           font-family: 'IBM Plex Mono', monospace;
           font-size: 12px;
-          color: #3a3a3a;
+          color: #666;
           text-decoration: none;
           letter-spacing: 0.08em;
           transition: color 0.2s;
@@ -156,11 +161,11 @@ export default function LandingPage() {
           padding: 10px 12px;
           border-radius: 4px;
           font-size: 10px;
-          color: #2a2a2a;
-          border: 1px solid #111;
+          color: #666;
+          border: 1px solid #1e1e1e;
           transition: all 0.15s;
         }
-        .phase-chip:hover { color: #888; }
+        .phase-chip:hover { color: #aaa; }
 
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(18px); }
@@ -192,7 +197,7 @@ export default function LandingPage() {
             DevRoad
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <Link href="/login" style={{ fontSize: 11, color: "#3a3a3a", textDecoration: "none", letterSpacing: "0.08em" }}>
+            <Link href="/login" style={{ fontSize: 11, color: "#888", textDecoration: "none", letterSpacing: "0.08em" }}>
               Sign in
             </Link>
             <Link href="/register" className="btn-outline">Get started</Link>
@@ -202,7 +207,7 @@ export default function LandingPage() {
         {/* ── Hero ── */}
         <section className="hero-pad" style={{ maxWidth: 880, margin: "0 auto", padding: "100px 40px 80px" }}>
 
-          <div className="anim-1" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase", color: "#3a3a3a", border: "1px solid #141414", padding: "6px 12px", borderRadius: 3, marginBottom: 36 }}>
+          <div className="anim-1" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase", color: "#666", border: "1px solid #222", padding: "6px 12px", borderRadius: 3, marginBottom: 36 }}>
             <div style={{ width: 16, height: 1, background: "#00ff88" }} />
             6-month backend mastery program
           </div>
@@ -213,9 +218,9 @@ export default function LandingPage() {
             <span className="title-accent">Go deep.</span>
           </h1>
 
-          <p className="anim-3" style={{ fontSize: 13, color: "#4a4a4a", lineHeight: 1.85, maxWidth: 480, marginBottom: 48 }}>
+          <p className="anim-3" style={{ fontSize: 13, color: "#888", lineHeight: 1.85, maxWidth: 480, marginBottom: 48 }}>
             A structured 6-month roadmap from OS internals to system design.{" "}
-            <span style={{ color: "#777" }}>400+ tasks, AI-generated assignments, notes per concept, streak tracking.</span>{" "}
+            <span style={{ color: "#aaa" }}>400+ tasks, AI-generated assignments, notes per concept, streak tracking.</span>{" "}
             Built for devs who already ship but don't own what they've built.
           </p>
 
@@ -235,14 +240,14 @@ export default function LandingPage() {
           ].map((s, i) => (
             <div key={s.label} style={{ padding: "28px 40px", borderRight: i < 3 ? "1px solid #141414" : "none" }}>
               <div className="stat-num">{s.num}</div>
-              <div style={{ fontSize: 10, color: "#3a3a3a", letterSpacing: "0.15em", textTransform: "uppercase", marginTop: 4 }}>{s.label}</div>
+              <div style={{ fontSize: 10, color: "#666", letterSpacing: "0.15em", textTransform: "uppercase", marginTop: 4 }}>{s.label}</div>
             </div>
           ))}
         </div>
 
         {/* ── Features ── */}
         <div className="section-pad" style={{ maxWidth: 880, margin: "80px auto 0", padding: "0 40px" }}>
-          <p style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#3a3a3a", marginBottom: 24 }}>What's inside</p>
+          <p style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#666", marginBottom: 24 }}>What's inside</p>
           <div className="features-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "#141414", border: "1px solid #141414", borderRadius: 8, overflow: "hidden" }}>
             {features.map((f) => (
               <div key={f.title} className="feature-card">
@@ -250,7 +255,7 @@ export default function LandingPage() {
                   {f.icon}
                 </div>
                 <div style={{ fontSize: 13, fontWeight: 500, color: "#ccc", marginBottom: 10 }}>{f.title}</div>
-                <div style={{ fontSize: 11, color: "#3a3a3a", lineHeight: 1.8 }}>{f.desc}</div>
+                <div style={{ fontSize: 11, color: "#666", lineHeight: 1.8 }}>{f.desc}</div>
               </div>
             ))}
           </div>
@@ -258,7 +263,7 @@ export default function LandingPage() {
 
         {/* ── Phases ── */}
         <div className="section-pad" style={{ maxWidth: 880, margin: "80px auto 0", padding: "0 40px" }}>
-          <p style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#3a3a3a", marginBottom: 24 }}>The 15 phases</p>
+          <p style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#666", marginBottom: 24 }}>The 15 phases</p>
           <div className="phases-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 8 }}>
             {phases.map((p) => (
               <div key={p.n} className="phase-chip" style={{ borderColor: p.color + "22" }}>
@@ -272,14 +277,14 @@ export default function LandingPage() {
         {/* ── CTA ── */}
         <section style={{ borderTop: "1px solid #141414", marginTop: 80, padding: "80px 40px", textAlign: "center" }}>
           <h2 className="cta-headline" style={{ marginBottom: 14 }}>Start today. Own it in 6 months.</h2>
-          <p style={{ fontSize: 12, color: "#3a3a3a", letterSpacing: "0.08em", marginBottom: 36 }}>
+          <p style={{ fontSize: 12, color: "#666", letterSpacing: "0.08em", marginBottom: 36 }}>
             the discomfort you feel is the learning
           </p>
           <Link href="/register" className="btn-primary">Create free account →</Link>
         </section>
 
         {/* ── Footer ── */}
-        <footer className="footer-dir" style={{ borderTop: "1px solid #141414", padding: "24px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 10, color: "#222", letterSpacing: "0.1em" }}>
+        <footer className="footer-dir" style={{ borderTop: "1px solid #141414", padding: "24px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 10, color: "#444", letterSpacing: "0.1em" }}>
           <span>DEVROAD · 2026</span>
           <span>build → break → understand → repeat</span>
         </footer>
