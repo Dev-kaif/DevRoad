@@ -4,35 +4,43 @@ import { headers } from "next/headers";
 import Link from "next/link";
 
 const phases = [
-  { n: "01", name: "OS", color: "#e8c547" },
-  { n: "02", name: "Networks", color: "#e8c547" },
-  { n: "03", name: "Node.js", color: "#47e8a0" },
-  { n: "04", name: "TypeScript", color: "#47e8a0" },
-  { n: "05", name: "Databases", color: "#e847a0" },
-  { n: "06", name: "Auth", color: "#e84747" },
-  { n: "07", name: "API Design", color: "#4788e8" },
-  { n: "08", name: "Observability", color: "#4788e8" },
-  { n: "09", name: "Caching", color: "#a047e8" },
-  { n: "10", name: "Queues", color: "#a047e8" },
-  { n: "11", name: "WebSockets", color: "#47e8e8" },
-  { n: "12", name: "DevOps", color: "#e8a047" },
-  { n: "13", name: "Sys Design", color: "#ff6b35" },
-  { n: "14", name: "DSA", color: "#ff6b35" },
-  { n: "15", name: "Own it", color: "#00ff88" },
+  { n: "01", name: "CPU Arch", color: "#e8c547" },
+  { n: "02", name: "OS", color: "#e8c547" },
+  { n: "03", name: "Linux", color: "#e8c547" },
+  { n: "04", name: "Networks", color: "#e8c547" },
+  { n: "05", name: "Node.js", color: "#47e8a0" },
+  { n: "06", name: "TypeScript", color: "#47e8a0" },
+  { n: "07", name: "Databases", color: "#e847a0" },
+  { n: "08", name: "Modeling", color: "#e847a0" },
+  { n: "09", name: "Auth", color: "#e84747" },
+  { n: "10", name: "API Design", color: "#4788e8" },
+  { n: "11", name: "Observability", color: "#4788e8" },
+  { n: "12", name: "Caching", color: "#a047e8" },
+  { n: "13", name: "Queues", color: "#a047e8" },
+  { n: "14", name: "WebSockets", color: "#47e8e8" },
+  { n: "15", name: "Distributed", color: "#ff6b35" },
+  { n: "16", name: "Event-Driven", color: "#ff6b35" },
+  { n: "17", name: "Performance", color: "#ff4757" },
+  { n: "18", name: "DevOps", color: "#e8a047" },
+  { n: "19", name: "Cloud", color: "#ffa502" },
+  { n: "20", name: "Sys Design", color: "#ff6b35" },
+  { n: "21", name: "DSA", color: "#ff6b35" },
+  { n: "22", name: "Build", color: "#00ff88" },
 ];
 
 const features = [
-  { icon: "◈", color: "#e8c547", bg: "#e8c54718", title: "Structured Roadmap", desc: "15 phases from OS internals → networks → databases → system design. Every task is something you can explain in an interview." },
-  { icon: "⚡", color: "#e84747", bg: "#e8474718", title: "AI Assignments", desc: "Gemini generates specific build tasks per phase. 'Build a JWT refresh rotation system' — not 'learn about auth'." },
+  { icon: "◈", color: "#e8c547", bg: "#e8c54718", title: "Structured Roadmap", desc: "22 phases from CPU architecture → OS internals → distributed systems → system design. Every task is something you can explain in an interview." },
+  { icon: "⚡", color: "#e84747", bg: "#e8474718", title: "AI Assignments", desc: "Your Gemini key, your browser, your data. Generates specific build tasks per phase — 'Build a JWT refresh rotation system', not 'learn about auth'." },
   { icon: "◎", color: "#4788e8", bg: "#4788e818", title: "Notes + Links", desc: "Add notes per checklist item or per phase. Store Notion links, MDN docs, blog posts — attached to where you learned it." },
-  { icon: "▸", color: "#47e8a0", bg: "#47e8a018", title: "Assignment Timer", desc: "Start a countdown when you begin a build task. Track how long you actually took vs your estimate." },
-  { icon: "◐", color: "#a047e8", bg: "#a047e818", title: "Streak Tracking", desc: "Daily streak updates every time you check something off. Break it and you'll feel it." },
-  { icon: "◻", color: "#ff6b35", bg: "#ff6b3518", title: "Built for your stack", desc: "TypeScript, Node.js, Postgres, Redis, Docker. Every build task forces you to actually understand what you already use." },
+  { icon: "▸", color: "#47e8a0", bg: "#47e8a018", title: "Assignment Timer", desc: "Start a countdown when you begin a build task. Track how long you actually took vs your estimate. Feel every over-time minute." },
+  { icon: "◐", color: "#a047e8", bg: "#a047e818", title: "Streak Tracking", desc: "Daily streak updates every time you check something off. Miss a day and you'll know about it." },
+  { icon: "◻", color: "#ff6b35", bg: "#ff6b3518", title: "Built for your stack", desc: "TypeScript, Node.js, Postgres, Redis, Docker. Every build task forces you to actually own what you already ship." },
 ];
 
 export default async function LandingPage() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (session) redirect("/roadmap");
+
   return (
     <>
       <style>{`
@@ -46,7 +54,6 @@ export default async function LandingPage() {
           position: relative;
           overflow-x: hidden;
         }
-
         .land-root::before {
           content: '';
           position: fixed;
@@ -55,7 +62,6 @@ export default async function LandingPage() {
           pointer-events: none;
           z-index: 0;
         }
-
         .land-root > * { position: relative; z-index: 1; }
 
         .logo-dot {
@@ -66,7 +72,6 @@ export default async function LandingPage() {
           animation: glow 2s ease-in-out infinite;
           flex-shrink: 0;
         }
-
         @keyframes glow {
           0%,100% { box-shadow: 0 0 10px #00ff88; }
           50%      { box-shadow: 0 0 4px #00ff88; opacity: 0.6; }
@@ -80,13 +85,11 @@ export default async function LandingPage() {
           letter-spacing: -0.03em;
           color: #fff;
         }
-
         .title-ghost {
           display: block;
           color: transparent;
           -webkit-text-stroke: 1px #444;
         }
-
         .title-accent {
           display: block;
           background: linear-gradient(90deg, #00ff88, #00cfff);
@@ -102,7 +105,6 @@ export default async function LandingPage() {
           color: #fff;
           line-height: 1;
         }
-
         .cta-headline {
           font-family: 'Syne', sans-serif;
           font-size: clamp(30px, 4vw, 48px);
@@ -171,20 +173,19 @@ export default async function LandingPage() {
           from { opacity: 0; transform: translateY(18px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-
         .anim-1 { animation: fadeUp 0.5s 0.0s ease both; }
         .anim-2 { animation: fadeUp 0.5s 0.1s ease both; }
         .anim-3 { animation: fadeUp 0.5s 0.2s ease both; }
         .anim-4 { animation: fadeUp 0.5s 0.3s ease both; }
 
         @media (max-width: 640px) {
-          .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .stats-grid    { grid-template-columns: repeat(2,1fr) !important; }
           .features-grid { grid-template-columns: 1fr !important; }
-          .phases-grid { grid-template-columns: repeat(3,1fr) !important; }
-          .nav-pad { padding: 16px 20px !important; }
-          .hero-pad { padding: 64px 20px 56px !important; }
-          .section-pad { padding-left: 20px !important; padding-right: 20px !important; }
-          .footer-dir { flex-direction: column !important; gap: 8px !important; text-align: center !important; }
+          .phases-grid   { grid-template-columns: repeat(3,1fr) !important; }
+          .nav-pad       { padding: 16px 20px !important; }
+          .hero-pad      { padding: 64px 20px 56px !important; }
+          .section-pad   { padding-left: 20px !important; padding-right: 20px !important; }
+          .footer-dir    { flex-direction: column !important; gap: 8px !important; text-align: center !important; }
         }
       `}</style>
 
@@ -206,24 +207,20 @@ export default async function LandingPage() {
 
         {/* ── Hero ── */}
         <section className="hero-pad" style={{ maxWidth: 880, margin: "0 auto", padding: "100px 40px 80px" }}>
-
           <div className="anim-1" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase", color: "#666", border: "1px solid #222", padding: "6px 12px", borderRadius: 3, marginBottom: 36 }}>
             <div style={{ width: 16, height: 1, background: "#00ff88" }} />
-            6-month backend mastery program
+            8-month backend mastery program
           </div>
-
           <h1 className="hero-title anim-2" style={{ marginBottom: 32 }}>
             <span className="title-ghost">Stop being</span>
             <span style={{ display: "block" }}>tutorial-dependent.</span>
             <span className="title-accent">Go deep.</span>
           </h1>
-
           <p className="anim-3" style={{ fontSize: 13, color: "#888", lineHeight: 1.85, maxWidth: 480, marginBottom: 48 }}>
-            A structured 6-month roadmap from OS internals to system design.{" "}
-            <span style={{ color: "#aaa" }}>400+ tasks, AI-generated assignments, notes per concept, streak tracking.</span>{" "}
+            A structured roadmap from CPU architecture to distributed systems.{" "}
+            <span style={{ color: "#aaa" }}>600+ tasks, AI-generated assignments, notes per concept, streak tracking.</span>{" "}
             Built for devs who already ship but don't own what they've built.
           </p>
-
           <div className="anim-4" style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
             <Link href="/register" className="btn-primary">Start the grind</Link>
             <Link href="/login" className="btn-ghost">Already have an account →</Link>
@@ -233,9 +230,9 @@ export default async function LandingPage() {
         {/* ── Stats ── */}
         <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", borderTop: "1px solid #141414", borderBottom: "1px solid #141414" }}>
           {[
-            { num: "15", label: "Phases" },
-            { num: "400+", label: "Checklist items" },
-            { num: "26", label: "Weeks" },
+            { num: "22", label: "Phases" },
+            { num: "600+", label: "Checklist items" },
+            { num: "32", label: "Weeks" },
             { num: "∞", label: "AI Assignments" },
           ].map((s, i) => (
             <div key={s.label} style={{ padding: "28px 40px", borderRight: i < 3 ? "1px solid #141414" : "none" }}>
@@ -263,8 +260,8 @@ export default async function LandingPage() {
 
         {/* ── Phases ── */}
         <div className="section-pad" style={{ maxWidth: 880, margin: "80px auto 0", padding: "0 40px" }}>
-          <p style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#666", marginBottom: 24 }}>The 15 phases</p>
-          <div className="phases-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 8 }}>
+          <p style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#666", marginBottom: 24 }}>The 22 phases</p>
+          <div className="phases-grid" style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", gap: 8 }}>
             {phases.map((p) => (
               <div key={p.n} className="phase-chip" style={{ borderColor: p.color + "22" }}>
                 <div style={{ color: p.color, fontWeight: 600, fontSize: 11, marginBottom: 4 }}>{p.n}</div>
@@ -276,7 +273,7 @@ export default async function LandingPage() {
 
         {/* ── CTA ── */}
         <section style={{ borderTop: "1px solid #141414", marginTop: 80, padding: "80px 40px", textAlign: "center" }}>
-          <h2 className="cta-headline" style={{ marginBottom: 14 }}>Start today. Own it in 6 months.</h2>
+          <h2 className="cta-headline" style={{ marginBottom: 14 }}>Start today. Own it in 8 months.</h2>
           <p style={{ fontSize: 12, color: "#666", letterSpacing: "0.08em", marginBottom: 36 }}>
             the discomfort you feel is the learning
           </p>
