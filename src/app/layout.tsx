@@ -10,8 +10,11 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevRoad — Backend Mastery",
-  description: "Your personal backend engineering roadmap",
+  title: "DevRoad - Backend Mastery",
+  description: "A complete roadmap to master backend engineering from computer science fundamentals to distributed systems, scaling, and production infrastructure.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
