@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Map, ClipboardList, StickyNote, LogOut, Flame } from "lucide-react";
+import { Map, ClipboardList, StickyNote, LogOut, Flame, UserIcon } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,7 @@ interface SidebarProps {
 
 const links = [
     { href: "/roadmap", label: "Roadmap", icon: Map },
+    { href: "/profile", label: "Profile", icon: UserIcon },
     { href: "/assignments", label: "Assignments", icon: ClipboardList },
     { href: "/notes", label: "Notes", icon: StickyNote },
 ];
