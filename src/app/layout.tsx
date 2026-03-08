@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/next"
 
 const mono = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="dark">
       <body className={`${mono.variable} font-mono bg-background text-foreground antialiased`}>
         {children}
+        <Analytics />
         <Toaster theme="dark" position="bottom-right" />
       </body>
     </html>
